@@ -16,7 +16,7 @@ const Post = () => {
                 recusandae minima deleniti.
               </h2>
               <p className="info flex gap-2">
-                <div className="authorName">authorName</div>
+                <div className="authorName">AuthorName</div>
                 <div>25-10-2025 23:59</div>
               </p>
               <p className="summary leading-8">
@@ -39,7 +39,7 @@ const Post = () => {
                 recusandae minima deleniti.
               </h2>
               <p className="info flex gap-2">
-                <div className="authorName">authorName</div>
+                <div className="authorName">AuthorName</div>
                 <div>25-10-2025 23:59</div>
               </p>
               <p className="summary leading-8">
@@ -62,7 +62,7 @@ const Post = () => {
                 recusandae minima deleniti.
               </h2>
               <p className="info flex gap-2">
-                <div className="authorName">authorName</div>
+                <div className="authorName">AuthorName</div>
                 <div>25-10-2025 23:59</div>
               </p>
               <p className="summary leading-8">
