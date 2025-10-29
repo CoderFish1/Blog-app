@@ -12,7 +12,9 @@ const salt = bcrypt.genSaltSync(10);
 app.use(cors())
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://blog:zIMDXmAmLNEValQ2@cluster0.0gpdeun.mongodb.net/').then(() => console.log("✅ MongoDB Connected"))
+require('dotenv').config()
+
+mongoose.connect(process.env.MONGO_URI).then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
 
