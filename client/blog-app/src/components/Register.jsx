@@ -7,11 +7,16 @@ const Register = () => {
   async function register(e) {
     e.preventDefault();
 
-    await fetch("http://localhost:4000/register", {
+    const response = await fetch("http://localhost:4000/register", {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: { "Content-Type": "application/json" },
     });
+    if (response.status === 200) {
+      alert("registration success");
+    } else {
+      alert("registration failed");
+    }
   }
 
   return (
@@ -27,7 +32,7 @@ const Register = () => {
             placeholder="username"
           />
           <input
-            type="text"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="mx-auto w-xl p-2 m-4 border-2 rounded-4xl hover:bg-gray-300"

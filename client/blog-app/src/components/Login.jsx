@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Login = () => {
+   const[username, setUsername] = useState('')
+   const[password, setPassword] = useState('')
+
+async function login(e){
+  e.preventDefault();
+
+  await fetch("http://localhost:4000/login",{
+    method: 'POST',
+    body: JSON.stringify({username, password}),
+    headers: {'Content-Type':'application/json'},
+  })
+}
+
   return (
     <div>
-      <form className="flex flex-col mt-5 ">
+      <form className="flex flex-col mt-5 " onSubmit={login}>
         <h1 className="mx-auto text-4xl font-bold">Login</h1>
         <input
-          type="text"
+          type="text" value={username} onChange={e=>setUsername(e.target.value)}
           className="mx-auto w-xl p-2 m-4 border-2 rounded-4xl hover:bg-gray-300 "
           placeholder="username"
         />
         <input
-          type="text"
+          type="password" value={password} onChange={e=>setPassword(e.target.value)}
           className="mx-auto w-xl p-2 m-4 border-2 rounded-4xl hover:bg-gray-300"
           placeholder="password"
         />
