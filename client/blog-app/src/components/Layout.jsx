@@ -6,7 +6,8 @@ const Layout = () => {
   return (
     <div>
       <Navbar/>
-      <Outlet/>
+      <Outlet/> 
+      {/* every page loads here */}
     </div>
   )
 }
