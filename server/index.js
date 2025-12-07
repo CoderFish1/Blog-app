@@ -4,13 +4,14 @@ const app = express();
 const mongoose = require("mongoose");
 const User = require('./models/User')
 const bcrypt = require("bcryptjs");
-
+const jwt = require('jsonwebtoken');
 
 const salt = bcrypt.genSaltSync(10);
 // Store hash in your password DB
+const secret = 'agasfjb3wljhbt3t2wgaihasiha';
 
 app.use(cors())
-app.use(express.json());
+app.use(express.json());   
 
 require('dotenv').config()
 
@@ -40,16 +41,15 @@ app.post('/login', async (req, res)=>{
   const passOK = bcrypt.compareSync(password, userDoc.password); // true
   if(passOK){
     //loggedIn
+    jwt.sign({username, id:userDoc._id}, secret, {})
   }else{
     res.status(400).json("Wrong Credentials!")
   }
-
-  res.json(userDoc)
 })
 
 app.listen(4000, () => {
   console.log("Server running on port 4000");
 });
 
-//zIMDXmAmLNEValQ2
+//5wT8uwveGEGuuFju
 
