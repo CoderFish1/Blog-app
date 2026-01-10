@@ -3,9 +3,14 @@ const cors = require("cors")
 const app = express();
 const mongoose = require("mongoose");
 const User = require('./models/User')
+const Post = require('./models/Post')
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser')
+const multer  = require('multer')
+const uploadMiddleware = multer({ dest: 'uploads/' })
+const fs = require('fs')
+const path = require('path');
 
 const salt = bcrypt.genSaltSync(10);
 // Store hash in your password DB
@@ -77,6 +82,24 @@ app.get('/profile', (req,res)=>{
 
 app.post('/logout', async (req, res)=>{
   res.cookie('token', '').json('ok')
+})
+
+app.post('/post', uploadMiddleware.single('file'), async (req, res)=>{
+  const {originalname, path: tempPath} = req.file;
+  const ext = path.extname(originalname); // Gets the extension
+  const newPath = tempPath + ext;
+
+  fs.renameSync(tempPath, newPath)
+
+  const{title, summary, content} = req.body;
+  const postDoc = await Post.create({
+    title,
+    summary, 
+    content,
+    cover: newPath,
+  })
+  
+  res.json({postDoc});
 })
 
 app.listen(4000, () => {

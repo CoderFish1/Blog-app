@@ -1,46 +1,51 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
 const Login = () => {
-   const[username, setUsername] = useState('')
-   const[password, setPassword] = useState('')
-   const[redirect, setredirect] = useState(false)
-   const[error, setError] = useState(false)
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [redirect, setredirect] = useState(false);
+  const [error, setError] = useState(false);
+  const { setUserInfo } = useContext(UserContext);
 
-async function login(e){
-  e.preventDefault();
+  async function login(e) {
+    e.preventDefault();
 
-  const response = await fetch("http://localhost:4000/login",{
-    method: 'POST',
-    body: JSON.stringify({username, password}),
-    headers: {'Content-Type':'application/json'},
-    credentials: 'include' // to save cookies in react app
-  })
-  if(response.ok){
-    response.json().then(userinfo =>{
+    const response = await fetch("http://localhost:4000/login", {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", // to save cookies in react app
+    });
+    if (response.ok) {
+      const userinfo = await response.json(); // Await the json
+      setUserInfo(userinfo);
       setredirect(true);
-    })
-    
-  }else{
-    setError(true)
+    } else {
+      setError(true);
+    }
   }
-}
 
-if(redirect){
-  return <Navigate to={'/'}/>
-}
+  if (redirect) {
+    return <Navigate to={"/"} />;
+  }
   return (
     <div>
       {error && <p>Wrong credentials</p>}
       <form className="flex flex-col mt-5 " onSubmit={login}>
         <h1 className="mx-auto text-4xl font-bold">Login</h1>
         <input
-          type="text" value={username} onChange={e=>setUsername(e.target.value)}
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className="mx-auto w-xl p-2 m-4 border-2 rounded-4xl hover:bg-gray-300 "
           placeholder="Username"
         />
         <input
-          type="password" value={password} onChange={e=>setPassword(e.target.value)}
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="mx-auto w-xl p-2 m-4 border-2 rounded-4xl hover:bg-gray-300"
           placeholder="Password"
         />

@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 
 const Layout = () => {
   return (
-    <div>
+    <div className='pt-16'>
       <Navbar/>
       <Outlet/> 
       {/* every page loads here */}
