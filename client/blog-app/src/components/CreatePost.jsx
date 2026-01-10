@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
@@ -6,6 +7,7 @@ export default function CreatePost() {
   const [content, setContent] = useState("");
   const [filename, setFileName] = useState("Choose file");
   const [files, setFiles] = useState(null);
+  const [redirect, setredirect] = useState(false);
 
   async function createNewPost(e) {
     e.preventDefault();
@@ -22,8 +24,11 @@ export default function CreatePost() {
     if (response.ok) {
     const postInfo = await response.json();
     console.log("Post created:", postInfo);
-    // Optional: redirect to home or clear form here
+    setredirect(true);
   }
+  }
+  if(redirect){
+    return <Navigate to={'/'} />
   }
 
   return (

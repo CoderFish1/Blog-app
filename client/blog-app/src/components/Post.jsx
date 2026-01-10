@@ -1,6 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Post = () => {
+
+  // const [posts, setPosts] = useState([])
+
+  useEffect(() =>{
+    fetch('http://localhost:4000/post').then(response => {
+      response.json().then(posts =>{
+        console.log(posts);
+      });
+    })
+  },[])
   return (
     <>
       <div className="post flex flex-col md:flex-row p-5 gap-4">

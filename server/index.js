@@ -102,6 +102,10 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res)=>{
   res.json({postDoc});
 })
 
+app.get('/post', async (req, res) =>{
+  res.json(await Post.find());
+})
+
 app.listen(4000, () => {
   console.log("Server running on port 4000");
 });
